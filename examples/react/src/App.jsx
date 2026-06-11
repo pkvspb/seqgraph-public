@@ -8,18 +8,29 @@ import SeqGraphComponent from './SeqGraphComponent.jsx';
 
 const TIME_STEP_MS = 250;
 
+function detectSystemTheme() {
+    return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+// Set before the first render so SeqGraphComponent's effect (which runs
+// before App's effects) reads the correct theme's CSS variables.
+document.documentElement.dataset.appliedMode = detectSystemTheme();
+
 export default function App() {
-    const [theme, setTheme] = useState(() =>
-        window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-    );
+    const [theme, setTheme] = useState(detectSystemTheme);
     const [processedValues, setProcessedValues] = useState(null);
 
     const leftResizerRef = useRef(null);
     useLeftPanelResize(leftResizerRef);
 
-    useEffect(() => {
-        document.documentElement.dataset.appliedMode = theme;
-    }, [theme]);
+    function toggleTheme() {
+        const nextTheme = theme === 'dark' ? 'light' : 'dark';
+        // Set synchronously, before setTheme triggers a re-render — child
+        // effects run before this component's, so the attribute must
+        // already be updated by the time SeqGraphComponent re-reads colors.
+        document.documentElement.dataset.appliedMode = nextTheme;
+        setTheme(nextTheme);
+    }
 
     useEffect(() => {
         let cancelled = false;
@@ -54,7 +65,7 @@ export default function App() {
             </div>
 
             <div className="theme-controls">
-                <button onClick={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))}>
+                <button onClick={toggleTheme}>
                     {theme === 'dark' ? '☀️' : '🌙'}
                 </button>
             </div>

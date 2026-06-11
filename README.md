@@ -27,7 +27,7 @@ npx http-server -p 8080 -c-1
 
 Then open `http://localhost:8080/examples/vanilla/` in a browser.
 
-VS Code: start the server, then **F5** → `examples/vanilla/index.html`.
+VS Code: start the server, then **F5** → **Vanilla demo**.
 
 ### React demo
 
@@ -37,7 +37,8 @@ npm install
 npm run dev
 ```
 
-Then open the URL Vite prints (defaults to `http://localhost:5173/`). See
+Then open the URL Vite prints (defaults to `http://localhost:5173/`), or with
+the dev server running, VS Code: **F5** → **React demo**. See
 [React wrapper pattern](#react-wrapper-pattern) below for how the library is
 integrated as a component.
 
