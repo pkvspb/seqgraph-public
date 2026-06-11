@@ -160,3 +160,15 @@ npm run deploy
 ```
 
 This rebuilds the library and copies the output here automatically.
+
+## License
+
+This repository uses two licenses:
+
+- **`lib/`** — the compiled, obfuscated `seqcomponent.js`/`seqgraph.js`/
+  `seqscroll.js` are proprietary and provided under the terms in
+  [`lib/LICENSE`](lib/LICENSE): you may use them unmodified as a dependency in
+  your own projects, but may not redistribute, modify, decompile, or resell
+  them.
+- **Everything else** (examples, mock data, documentation) is licensed under
+  the Apache License, Version 2.0 — see [`LICENSE`](LICENSE).
