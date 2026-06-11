@@ -12,7 +12,12 @@ sequencing trace data from a Sanger-style sequencing instrument.
 - **Y-axis** auto-scaled to the dataset's overall maximum, with half/full labels
 - **Light and dark theme** support via CSS custom properties
 
-## Quick start
+## Demos
+
+Two equivalent demos are included — a build-free vanilla JS/HTML/CSS version
+and a Vite + React version.
+
+### Vanilla demo (no build step)
 
 ES modules require a local server (browsers block `file://` imports).
 
@@ -20,17 +25,30 @@ ES modules require a local server (browsers block `file://` imports).
 npx http-server -p 8080 -c-1
 ```
 
-Then open `http://localhost:8080` in a browser.
+Then open `http://localhost:8080/examples/vanilla/` in a browser.
 
-VS Code: start the server, then **F5** → `index.html`.
+VS Code: start the server, then **F5** → `examples/vanilla/index.html`.
+
+### React demo
+
+```bash
+cd examples/react
+npm install
+npm run dev
+```
+
+Then open the URL Vite prints (defaults to `http://localhost:5173/`). See
+[React wrapper pattern](#react-wrapper-pattern) below for how the library is
+integrated as a component.
 
 ## Files
 
 | File | Purpose |
 |------|---------|
-| `index.html` | Page structure — all required element IDs |
-| `example.css` | Layout and theming — adjust the `--*` constants at the top to resize the component |
-| `example.js` | Theme detection and `initSeqComponent` call |
+| `examples/vanilla/index.html` | Page structure — all required element IDs |
+| `examples/vanilla/example.css` | Layout and theming — adjust the `--*` constants at the top to resize the component |
+| `examples/vanilla/example.js` | Theme detection and `initSeqComponent` call |
+| `examples/react/` | React demo — see [React demo](#react-demo) below |
 | `api/mockSeqProcessedValues.js` | Mock processed trace data: A/C/G/T intensities, peak calls, exit times, qualities, 250 ms/sample |
 | `lib/seqcomponent.js` | Library entry point — **import this file** |
 | `lib/seqgraph.js` | Canvas renderer (also exported for standalone use) |
@@ -103,6 +121,32 @@ const cleanup = initSeqComponent(graph, scroll, zoom, values, colors, xAxis, yAx
 
 `cleanup()` removes all event listeners attached by the library (resize,
 click, pointer, crosshair). Call it when tearing down the component.
+
+## React wrapper pattern
+
+`examples/react/` is a small Vite + React app showing how to wrap the library
+as a component instead of calling `initSeqComponent` directly from a script.
+
+Key file: `examples/react/src/SeqGraphComponent.jsx`. The pattern:
+
+- A `useRef` on the graph's container `<div>`, and a `useEffect` keyed on
+  `[processedValues, theme]` that calls `initSeqComponent(...)` and returns
+  its cleanup function — React calls the cleanup automatically before the
+  next effect run and on unmount.
+- All chart colors (`colorA/C/G/T`, axis font colors, mutation color, scroll
+  bar colors) are read from CSS custom properties via `getComputedStyle`
+  rather than hardcoded in JS — see the `--seq-graph-*`, `--seq-mutation`,
+  `--text`, `--scroll-back` and `--scroll-port` variables in
+  `examples/react/src/App.css`. Toggling `data-applied-mode` on `<html>` and
+  re-running the effect (via the `theme` dependency) is enough to re-theme
+  the chart.
+- The component renders the same fixed-ID containers/canvases as
+  `examples/vanilla/index.html`'s component portion; the surrounding "demo
+  chrome" (resizable left panel, zoom buttons, theme toggle) lives in
+  `examples/react/src/App.jsx`.
+
+This is the recommended approach when integrating SeqComponent into a
+component-based app.
 
 ## Updating the library files
 

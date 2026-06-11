@@ -1,8 +1,8 @@
-import { initSeqComponent } from './lib/seqcomponent.js';
+import { initSeqComponent } from '../../lib/seqcomponent.js';
 import {
     getProcessedAValuesAsync, getProcessedCValuesAsync, getProcessedGValuesAsync, getProcessedTValuesAsync,
     getPeaksQualitiesAsync, getPeaksNamesAsync, getPeaksExitTimesAsync,
-} from './api/mockSeqProcessedValues.js';
+} from '../../api/mockSeqProcessedValues.js';
 
 // ── 1. Data ──────────────────────────────────────────────────────────────────
 // Mock processed sequencing data: per-base A/C/G/T trace intensities, plus
