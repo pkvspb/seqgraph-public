@@ -1,0 +1,212 @@
+/* ── Theme ──────────────────────────────────────────────────────────────────
+   Set data-applied-mode="light" or "dark" on <html> from JavaScript.
+   The library reads --scroll-back and --scroll-port for the scrollbar colors.
+   ─────────────────────────────────────────────────────────────────────────── */
+:root[data-applied-mode="light"] {
+    color-scheme: light;
+    --text:        #1a1a1a;
+    --background:  #f4f6f5;
+    --graph-bg:    #ffffff;
+    --axis-bg:     #dde3e0;
+    --scroll-back: lightgray;
+    --scroll-port: darkgray;
+}
+
+:root[data-applied-mode="dark"] {
+    color-scheme: dark;
+    --text:        #d9d0d0;
+    --background:  #282828;
+    --graph-bg:    #202020;
+    --axis-bg:     #434846;
+    --scroll-back: dimgray;
+    --scroll-port: darkgray;
+}
+
+/* ── Layout constants ───────────────────────────────────────────────────────
+   Adjust these values to resize the component on the page.
+   The axis row heights mirror the font sizes set in example.js
+   (seqXNumAxisFontSize + 2, seqQualitiesFontSize + 2, seqXNucAxisFontSize + 2).
+   ─────────────────────────────────────────────────────────────────────────── */
+:root {
+    --y-axis-width:    36px;
+    --zoom-height:     38px;
+    --num-axis-height: 11px;
+    --qualities-height: 10px;
+    --nuc-axis-height: 13px;
+    --graph-height:    50vh;
+    --scroll-height:   12px;
+    --left-width: 20%;
+    --left-resizer-width: 6px;
+
+    --content-top: calc(var(--zoom-height) + var(--num-axis-height) + var(--qualities-height) + var(--nuc-axis-height));
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: var(--background);
+    color: var(--text);
+    font-family: Verdana, sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Resizable left panel — demonstrates the graph adapting to container resizes */
+.left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: var(--left-width);
+    background: var(--axis-bg);
+}
+
+.left-resizer {
+    position: absolute;
+    left: calc(var(--left-width) - var(--left-resizer-width) / 2);
+    top: 0;
+    bottom: 0;
+    width: var(--left-resizer-width);
+    background-color: rgb(100, 100, 100);
+    cursor: col-resize;
+    z-index: 10;
+    touch-action: none;
+}
+
+.left-resizer:hover,
+.left-resizer.active {
+    background-color: rgb(120, 160, 200);
+}
+
+/* Zoom +/− buttons — above the Y-axis column */
+.zoom-controls {
+    position: absolute;
+    left: calc(var(--left-width) + var(--y-axis-width));
+    top: 0;
+    height: var(--zoom-height);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding-left: 4px;
+}
+
+.zoom-controls button {
+    width: 28px;
+    height: 28px;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    border: 1px solid #888;
+    border-radius: 4px;
+    background: var(--axis-bg);
+    color: var(--text);
+}
+
+/* Theme toggle — top-right corner */
+.theme-controls {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: var(--zoom-height);
+    display: flex;
+    align-items: center;
+    padding-right: 4px;
+}
+
+.theme-controls button {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    border: 1px solid #888;
+    border-radius: 4px;
+    background: var(--axis-bg);
+    color: var(--text);
+}
+
+/* Numeric axis — peak index labels above the quality row */
+.x-num-axis-container {
+    position: absolute;
+    left: calc(var(--left-width) + var(--y-axis-width));
+    top: var(--zoom-height);
+    right: 0;
+    height: var(--num-axis-height);
+    background: var(--axis-bg);
+    overflow: hidden;
+}
+
+/* Quality row — per-base color bars */
+.qualities-container {
+    position: absolute;
+    left: calc(var(--left-width) + var(--y-axis-width));
+    top: calc(var(--zoom-height) + var(--num-axis-height));
+    right: 0;
+    height: var(--qualities-height);
+    background: var(--axis-bg);
+    overflow: hidden;
+}
+
+/* Nucleotide axis — A/C/G/T letters */
+.x-nuc-axis-container {
+    position: absolute;
+    left: calc(var(--left-width) + var(--y-axis-width));
+    top: calc(var(--zoom-height) + var(--num-axis-height) + var(--qualities-height));
+    right: 0;
+    height: var(--nuc-axis-height);
+    background: var(--axis-bg);
+    overflow: hidden;
+}
+
+.x-num-axis-container canvas,
+.qualities-container canvas,
+.x-nuc-axis-container canvas {
+    display: block;
+}
+
+/* Y-axis labels — narrow column left of the graph, same top/height as the graph
+   so the library's computed label offsets line up with the trace. */
+.y-axis-container {
+    position: absolute;
+    left: var(--left-width);
+    top: var(--content-top);
+    width: var(--y-axis-width);
+    height: var(--graph-height);
+    background: var(--axis-bg);
+}
+
+.y-axis-container span {
+    position: absolute;
+    left: 2px;
+}
+
+/* Main graph area — the library sizes the canvas to match this container */
+.graph-container {
+    position: absolute;
+    left: calc(var(--left-width) + var(--y-axis-width));
+    top: var(--content-top);
+    right: 0;
+    height: var(--graph-height);
+    background: var(--graph-bg);
+}
+
+.graph-container canvas {
+    display: block;
+}
+
+/* Horizontal scroll bar — thin strip below the graph */
+.scroll-container {
+    position: absolute;
+    left: calc(var(--left-width) + var(--y-axis-width));
+    top: calc(var(--content-top) + var(--graph-height));
+    right: 0;
+    height: var(--scroll-height);
+}
+
+.scroll-container canvas {
+    display: block;
+    border: 1px solid #aaa;
+    box-sizing: border-box;
+}

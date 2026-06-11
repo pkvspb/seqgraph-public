@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeqComponent — DNA Sequence Trace Viewer</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="./example.css">
+</head>
+<body>
+    <!--
+        SeqComponent requires the specific element IDs below.
+        You control all sizing and positioning through CSS.
+        The library reads container dimensions via getBoundingClientRect()
+        and paints into the <canvas> elements automatically.
+    -->
+
+    <!-- Resizable left panel — drag the splitter to resize the graph's container -->
+    <div class="left" id="left-id"></div>
+    <div class="left-resizer" id="left-resizer-id"></div>
+
+    <!-- Zoom controls: any two clickable elements with these IDs -->
+    <div class="zoom-controls">
+        <button id="seqzoom-out-id">−</button>
+        <button id="seqzoom-in-id">+</button>
+    </div>
+
+    <!-- Theme toggle: switches the page (and graph colors) between light and dark -->
+    <div class="theme-controls">
+        <button id="theme-toggle-id"></button>
+    </div>
+
+    <!-- Numeric axis — peak index labels, drawn on canvas by the library -->
+    <div class="x-num-axis-container" id="seq-x-num-axis-container-id">
+        <canvas id="seq-x-num-axis-id"></canvas>
+    </div>
+
+    <!-- Quality row — per-base color bars, drawn on canvas by the library -->
+    <div class="qualities-container" id="seq-qualities-container-id">
+        <canvas id="seq-qualities-id"></canvas>
+    </div>
+
+    <!-- Nucleotide axis — A/C/G/T letters, drawn on canvas by the library -->
+    <div class="x-nuc-axis-container" id="seq-x-nuc-axis-container-id">
+        <canvas id="seq-x-nuc-axis-id"></canvas>
+    </div>
+
+    <!-- Y-axis labels — positioned by the library, sized by the graph container -->
+    <div class="y-axis-container">
+        <span id="seq-y-axis-10-id"></span>
+        <span id="seq-y-axis-05-id"></span>
+    </div>
+
+    <!-- Main graph canvas — the library fills this to its container's size -->
+    <div class="graph-container" id="seqgraph-container-id">
+        <canvas id="seqgraph-id"></canvas>
+    </div>
+
+    <!-- Horizontal scroll bar — appears after the first zoom-in -->
+    <div class="scroll-container" id="seqscroll-container-id">
+        <canvas id="seqscroll-id"></canvas>
+    </div>
+
+    <script type="module" src="./example.js"></script>
+</body>
+</html>
