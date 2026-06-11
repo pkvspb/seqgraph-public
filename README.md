@@ -3,7 +3,7 @@
 Example of using the SeqComponent canvas library to visualize processed DNA
 sequencing trace data from a Sanger-style sequencing instrument.
 
-**[Live demo](https://pkvspb.github.io/seqgraph-public/)**
+**[Live demo](https://pkvspb.github.io/seqgraph-public/examples/vanilla/index.html)**
 
 - **4 channels** (A/C/G/T), each rendered as a colored trace on an HTML5 Canvas
 - **Per-base quality row** — color-coded bars (low/medium/high) below the trace
