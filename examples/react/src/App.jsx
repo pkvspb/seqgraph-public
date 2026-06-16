@@ -65,7 +65,10 @@ export default function App() {
             </div>
 
             <div className="theme-controls">
-                <button onClick={toggleTheme}>
+                <button
+                    onClick={toggleTheme}
+                    style={{fontSize: "12px"}}
+                >
                     {theme === 'dark' ? '☀️' : '🌙'}
                 </button>
             </div>
