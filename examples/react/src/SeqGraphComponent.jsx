@@ -36,13 +36,13 @@ export default function SeqGraphComponent({ processedValues, theme }) {
         const seqXNucAxisFontSize = 11;
         const seqXAxisFontColor = getStyledColor('--text');
         const seqXAxisMutationFontColor = getStyledColor('--seq-mutation');
-        const seqXAxisFontName = 'Verdana';
+        const seqXAxisFontName = '"Fira Code", monospace';
 
         const seqYAxis05Id = 'seq-y-axis-05-id';
         const seqYAxis10Id = 'seq-y-axis-10-id';
         const seqYAxisFontSize = 11;
         const seqYAxisFontColor = getStyledColor('--text');
-        const seqYAxisFontName = 'Verdana';
+        const seqYAxisFontName = '"Fira Code", monospace';
 
         const graph = { seqGraphId, seqGraphContainerId };
         const scroll = { seqScrollId, seqScrollContainerId, seqScrollBackground, seqScrollPortColor };

@@ -69,7 +69,7 @@ function start(isDark) {
 
         seqXAxisFontColor:         isDark ? 'white' : 'black',
         seqXAxisMutationFontColor: isDark ? 'Peru'  : 'SaddleBrown',
-        seqXAxisFontName:          'Verdana',
+        seqXAxisFontName:          '"Fira Code", monospace',
     };
 
     const yAxis = {
@@ -77,7 +77,7 @@ function start(isDark) {
         seqYAxis10Id:      'seq-y-axis-10-id',
         seqYAxisFontSize:  11,
         seqYAxisFontColor: isDark ? 'white' : 'black',
-        seqYAxisFontName:  'Verdana',
+        seqYAxisFontName:  '"Fira Code", monospace',
     };
 
     cleanup = initSeqComponent(graph, scroll, zoom, values, colors, xAxis, yAxis);

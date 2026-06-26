@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'Fira Code';
+    src: url('./assets/FiraCode-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
 /* ── Theme ──────────────────────────────────────────────────────────────────
    Set data-applied-mode="light" or "dark" on <html> from JavaScript.
    SeqGraphComponent reads --seq-graph-a/c/g/t, --seq-mutation, --text,
@@ -65,7 +73,7 @@ html, body {
     padding: 0;
     background: var(--background);
     color: var(--text);
-    font-family: Verdana, sans-serif;
+    font-family: 'Fira Code', monospace;
     position: relative;
     overflow: hidden;
 }
