@@ -1,5 +1,9 @@
 # SeqComponent — DNA Sequence Trace Viewer
 
+> **Unsupported.** SeqComponent is retired and the library file in `lib/` is
+> no longer updated. Its successor, SeqTrace (with SeqScrollBar and SeqLink),
+> is shown in [seqtrace-public](https://github.com/pkvspb/seqtrace-public).
+
 Example of using the SeqComponent canvas library to visualize processed DNA
 sequencing trace data from a Sanger-style sequencing instrument.
 
